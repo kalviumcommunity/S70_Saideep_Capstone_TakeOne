@@ -37,4 +37,24 @@ router.get("/me", authMiddleware, async (req, res) => {
   }
 });
 
+// PUT: Update user details (protected route)
+router.put("/update", authMiddleware, async (req, res) => {
+  try {
+    const { name, email, bio } = req.body;
+    const userId = req.user.id;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name, email, bio },
+      { new: true, runValidators: true }
+    ).select("-password"); // Exclude password
+
+    if (!updatedUser) return res.status(404).json({ error: "User not found" });
+
+    res.json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = router;
