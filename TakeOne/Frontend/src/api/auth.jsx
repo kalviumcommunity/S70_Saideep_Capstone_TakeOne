@@ -5,7 +5,7 @@ const API_URL = "http://localhost:5000/api/auth"; // Change if deployed
 // User Signup
 export const signupUser = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/signup`, userData);
+    const response = await axios.post(`${API_URL}/register`, userData);
     return response.data;
   } catch (error) {
     console.error("Signup Error:", error.response?.data?.message);
@@ -17,9 +17,11 @@ export const signupUser = async (userData) => {
 export const loginUser = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
+    localStorage.setItem("token", response.data.token); // Store token
     return response.data;
   } catch (error) {
     console.error("Login Error:", error.response?.data?.message);
     throw error.response?.data || error;
   }
 };
+
