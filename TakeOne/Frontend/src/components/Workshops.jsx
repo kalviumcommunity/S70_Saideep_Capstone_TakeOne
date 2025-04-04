@@ -8,6 +8,7 @@ const workshops = [
     price: "$129",
     buttonText: "Reserve Your Spot",
     buttonStyle: "bg-yellow-500 hover:bg-yellow-600",
+    imageUrl: "path/to/digital-cinematography.jpg",
   },
   {
     title: "Screenplay Writing Basics",
@@ -16,6 +17,7 @@ const workshops = [
     price: "FREE",
     buttonText: "Join Workshop",
     buttonStyle: "bg-green-500 hover:bg-green-600",
+    imageUrl: "path/to/screenplay-writing.jpg",
   },
 ];
 
@@ -27,6 +29,11 @@ const Workshops = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {workshops.map((workshop, index) => (
             <div key={index} className="bg-gray-800 p-6 rounded-lg">
+              <img
+                src={workshop.imageUrl}
+                alt={workshop.title}
+                className="w-full h-40 object-cover rounded mb-4"
+              />
               <p className="text-yellow-400 text-sm font-semibold">
                 {workshop.type}
               </p>
