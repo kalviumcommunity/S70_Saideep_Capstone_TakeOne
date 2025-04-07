@@ -1,3 +1,4 @@
+// ✅ Using JWT to protect routes — for capstone proof
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
