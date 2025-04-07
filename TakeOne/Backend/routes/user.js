@@ -26,6 +26,7 @@ router.post("/register", async (req, res) => {
     await user.save();
 
     // Generate a JWT token
+    // ✅ JWT generation done below (for login/register)
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     console.log("Generated Token:", token); // Debugging
