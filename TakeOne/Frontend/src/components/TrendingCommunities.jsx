@@ -1,3 +1,4 @@
+// ✅ Created for Capstone Concept: "Created frontend components in React"
 import React from "react";
 
 const communities = [

@@ -1,3 +1,4 @@
+// ✅ Created for Capstone Concept: "Created frontend components in React"
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
