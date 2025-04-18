@@ -2,15 +2,29 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
+require("./passport"); // 🧠 Passport config file
 
 const authRoutes = require("./routes/auth"); // 🔐 Auth routes
 const userRoutes = require("./routes/user"); // 👤 User profile routes
 
-const app = express();
+const app = express(); // ✅ Move this up before any app.use()
 
 // 🧠 Middleware
 app.use(express.json());
 app.use(cors());
+
+// 🛡️ Session middleware (for storing login session data)
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
+// 🚀 Initialize Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
 // 🌐 Connect MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -18,7 +32,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error("MongoDB Connection Error:", err));
 
 // 🚪 Route middlewares
-app.use("/api/auth", authRoutes);   // Register/Login APIs
+app.use("/api/auth", authRoutes);   // Register/Login + Google OAuth
 app.use("/api/users", userRoutes);  // Profile, Update, Me APIs
 
 const PORT = process.env.PORT || 5000;
