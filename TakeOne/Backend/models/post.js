@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Implemented DB entity relationships
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
