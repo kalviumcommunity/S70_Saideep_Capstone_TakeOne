@@ -1,6 +1,44 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
+// Move these arrays ABOVE the Workshops component
+const workshops = [
+  {
+    title: "Scriptwriting Deep Dive",
+    instructor: "Alex Johnson",
+    description: "Master the art of storytelling with industry experts.",
+    price: "199",
+    image: "https://th.bing.com/th/id/OIP.SU_Wdiv713KdgzKHY8K0rwHaHa?rs=1&pid=ImgDetMain",
+  },
+  {
+    title: "Acting for the Camera",
+    instructor: "Sarah Lee",
+    description: "Learn on-camera techniques from professional actors.",
+    price: "249",
+    image: "https://th.bing.com/th/id/OIP.jvQZvPvkPkjkjNHZzkphmgHaE8?rs=1&pid=ImgDetMain",
+  },
+  {
+    title: "DIY Filmmaking Hacks",
+    instructor: "Mike Chen",
+    description: "Create cinematic content with minimal gear.",
+    price: "149",
+    image: "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2016/08/DIY_Filmmaking_Tutorials.jpg?resize=368",
+  },
+  {
+    title: "Networking & Pitching",
+    instructor: "Emma Thompson",
+    description: "Learn how to sell your ideas in the film industry.",
+    price: "179",
+    image: "https://www.clearvoice.com/wp-content/uploads/2019/04/Networking-Pitching_Practices.png",
+  },
+];
+
+const features = [
+  { icon: "🎥", title: "Live Interactive Sessions", description: "Engage directly with instructors through Zoom-like sessions." },
+  { icon: "❓", title: "Exclusive Q&A", description: "Get your questions answered by industry professionals." },
+  { icon: "📜", title: "Certification", description: "Receive industry-recognized certification upon completion." },
+];
+
 const Workshops = () => {
   return (
     <div className="bg-black text-white min-h-screen">
@@ -72,42 +110,5 @@ const Workshops = () => {
     </div>
   );
 };
-
-const workshops = [
-  {
-    title: "Scriptwriting Deep Dive",
-    instructor: "Alex Johnson",
-    description: "Master the art of storytelling with industry experts.",
-    price: "199",
-    image: "https://source.unsplash.com/300x200/?scriptwriting,film",
-  },
-  {
-    title: "Acting for the Camera",
-    instructor: "Sarah Lee",
-    description: "Learn on-camera techniques from professional actors.",
-    price: "249",
-    image: "https://source.unsplash.com/300x200/?acting,film",
-  },
-  {
-    title: "DIY Filmmaking Hacks",
-    instructor: "Mike Chen",
-    description: "Create cinematic content with minimal gear.",
-    price: "149",
-    image: "https://source.unsplash.com/300x200/?filmmaking,camera",
-  },
-  {
-    title: "Networking & Pitching",
-    instructor: "Emma Thompson",
-    description: "Learn how to sell your ideas in the film industry.",
-    price: "179",
-    image: "https://source.unsplash.com/300x200/?networking,business",
-  },
-];
-
-const features = [
-  { icon: "🎥", title: "Live Interactive Sessions", description: "Engage directly with instructors through Zoom-like sessions." },
-  { icon: "❓", title: "Exclusive Q&A", description: "Get your questions answered by industry professionals." },
-  { icon: "📜", title: "Certification", description: "Receive industry-recognized certification upon completion." },
-];
 
 export default Workshops;

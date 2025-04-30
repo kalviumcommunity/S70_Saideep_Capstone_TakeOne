@@ -9,7 +9,7 @@ const workshops = [
     price: "$129",
     buttonText: "Reserve Your Spot",
     buttonStyle: "bg-yellow-500 hover:bg-yellow-600",
-    imageUrl: "path/to/digital-cinematography.jpg",
+    imageUrl: "https://th.bing.com/th/id/OIP.MVARpq6NUrvw6u8-uu38DQHaEK?rs=1&pid=ImgDetMain", // 🖼️ Added Image
   },
   {
     title: "Screenplay Writing Basics",
@@ -18,7 +18,7 @@ const workshops = [
     price: "FREE",
     buttonText: "Join Workshop",
     buttonStyle: "bg-green-500 hover:bg-green-600",
-    imageUrl: "path/to/screenplay-writing.jpg",
+    imageUrl: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/5d735b123041717.60e60df341932.jpg", // 🖼️ Added Image
   },
 ];
 
