@@ -6,7 +6,7 @@ const communities = [
     name: "Tarantino’s Crazy Timelines",
     description: "Discuss nonlinear storytelling and Tarantino's wild plots.",
     imageUrl:
-      "https://images.unsplash.com/photo-1585128792020-96646d1e90ad?auto=format&fit=crop&w=800&q=80",
+      "https://s.studiobinder.com/wp-content/uploads/2020/02/Best-Tarantino-Movies-StudioBinder.jpg",
   },
   {
     name: "Sci-Fi Junkies",
@@ -18,7 +18,7 @@ const communities = [
     name: "Indie Spotlight",
     description: "Celebrate the art of independent filmmaking.",
     imageUrl:
-      "https://images.unsplash.com/photo-1620912189865-1d7769fc285f?auto=format&fit=crop&w=800&q=80",
+      "https://images.fastcompany.com/image/upload/f_auto,q_auto,c_fit/wp-cms/uploads/2020/09/p-1-129-indie-films-that-prove-movie-posters-can-be-high-art.jpg",
   },
 ];
 

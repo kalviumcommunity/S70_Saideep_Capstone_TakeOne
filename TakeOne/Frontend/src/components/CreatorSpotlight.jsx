@@ -3,19 +3,19 @@ import React from "react";
 
 const creators = [
   {
-    name: "James Anderson",
-    role: "Director & Cinematographer",
-    imageUrl: "path/to/james-anderson.jpg",
+    name: "Mani Ratnam",
+    role: "Director",
+    imageUrl: "https://th.bing.com/th/id/OIP.xh0urxNM0nomznKrkqCuAQHaEC?rs=1&pid=ImgDetMain", // 🖼️ Added Image
   },
   {
-    name: "Sarah Chen",
-    role: "Indie Film Critic",
-    imageUrl: "path/to/sarah-chen.jpg",
+    name: "David Fincher",
+    role: "Director",
+    imageUrl: "https://th.bing.com/th/id/OIP.qBkO05R0Pa36IJsaTt788gHaEK?rs=1&pid=ImgDetMain", // 🖼️ Added Image
   },
   {
-    name: "Marcus Wright",
-    role: "Writer & Screenplay Specialist",
-    imageUrl: "path/to/marcus-wright.jpg",
+    name: "David Lynch",
+    role: "Writer,Director and producer",
+    imageUrl: "https://api.floodmagazine.com/wp-content/uploads/2022/06/David-Lynch-2560x1676.jpg", // 🖼️ Added Image
   },
 ];
 

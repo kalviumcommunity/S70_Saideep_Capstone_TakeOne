@@ -1,7 +1,24 @@
-import React from "react";
-import Navbar from "../components/Navbar"; // Import Navbar
+import React, { useState } from "react";
+import Navbar from "../components/Navbar";
+import PostItem from "../components/postItem";// Dynamic post component
 
 const Communities = () => {
+  const [posts, setPosts] = useState([
+    {
+      _id: "1",
+      text: "🎬 Inception is overrated. Change my mind.",
+      meta: "234 comments • 5k views",
+    },
+  ]);
+
+  const handleDelete = (id) => {
+    setPosts(posts.filter((post) => post._id !== id));
+  };
+
+  const handleUpdate = (id, newText) => {
+    setPosts(posts.map((post) => (post._id === id ? { ...post, text: newText } : post)));
+  };
+
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Navbar */}
@@ -41,10 +58,18 @@ const Communities = () => {
       {/* Hot Takes & Discussions */}
       <div className="max-w-4xl mx-auto bg-gray-900 p-6 rounded-lg">
         <h2 className="text-2xl font-bold text-yellow-400">Hot Takes & Discussions</h2>
-        <div className="mt-4 p-4 bg-gray-800 rounded">
-          <p className="font-bold text-white">🎬 Inception is overrated. Change my mind.</p>
-          <p className="text-gray-400 text-sm">234 comments • 5k views</p>
-        </div>
+
+        {/* Editable Dynamic Post */}
+        {posts.map((post) => (
+          <PostItem
+            key={post._id}
+            post={post}
+            onDelete={handleDelete}
+            onUpdate={handleUpdate}
+          />
+        ))}
+
+        {/* Keep the rest of the layout static */}
         <div className="mt-4 p-4 bg-gray-800 rounded">
           <p className="font-bold text-white">Poll: Who's the greatest director of all time?</p>
           <div className="mt-2">
