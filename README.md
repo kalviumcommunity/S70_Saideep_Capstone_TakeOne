@@ -1,3 +1,7 @@
+Frontend :- https://capstonetakeone.netlify.app/
+
+
+
 🎬 Capstone Project Proposal: TakeOne
 
 📅 Duration: 7 Weeks
