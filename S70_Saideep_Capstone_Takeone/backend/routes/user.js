@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const upload = require('../middleware/upload');
 const User = require("../models/User");
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -76,6 +77,25 @@ router.put("/update", authMiddleware, async (req, res) => {
     if (!updatedUser) return res.status(404).json({ error: "User not found" });
 
     res.json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.post("/upload", authMiddleware, upload.single("profilePic"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+    const userId = req.user.id;
+    const filePath = `/uploads/${req.file.filename}`;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: filePath },
+      { new: true }
+    ).select("-password");
+
+    res.json({ message: "Profile picture uploaded successfully", user: updatedUser });
   } catch (err) {
     res.status(500).json({ error: "Server error" });
   }

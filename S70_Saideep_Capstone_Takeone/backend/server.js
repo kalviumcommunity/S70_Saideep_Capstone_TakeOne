@@ -50,6 +50,7 @@ app.use('/api/auth',rateLimit);
 app.use('/api/ai',aiRoutes);
 app.use("/api/auth", authRoutes);   // Register/Login + Google OAuth
 app.use("/api/users", user);  // Profile, Update, Me APIs
+app.use("/uploads", express.static("uploads"));
 
 app.set("view engine", "ejs");
 

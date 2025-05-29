@@ -1,6 +1,5 @@
-const { buildSchema } = require("graphql");
-
-const schema = buildSchema(`
+// graphql/schema.js
+const typeDefs = `
   type Query {
     hello: String
     getUser(id: ID!): User
@@ -10,11 +9,15 @@ const schema = buildSchema(`
     addUser(name: String!, email: String!): User
   }
 
+  type Subscription {
+    userAdded: User
+  }
+
   type User {
     id: ID!
     name: String
     email: String
   }
-`);
+`;
 
-module.exports = schema;
+module.exports = typeDefs;

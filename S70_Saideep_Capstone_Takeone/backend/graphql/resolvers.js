@@ -1,28 +1,27 @@
-// Mock users data
-const users = [
-  { id: "1", name: "Alice", email: "alice@example.com" },
-  { id: "2", name: "Bob", email: "bob@example.com" },
-  { id: "3", name: "Charlie", email: "charlie@example.com" }
-];
+const { PubSub } = require("graphql-subscriptions");
 
-let nextId = 4; // To simulate unique ID for new users
+const pubsub = new PubSub();
+const USERS = [];
+let idCounter = 1;
 
-const root = {
-  hello: () => "GraphQL API working ✅",
-
-  getUser: ({ id }) => {
-    return users.find(user => user.id === id);
+const resolvers = {
+  Query: {
+    hello: () => "Hello from GraphQL!",
+    getUser: (_, { id }) => USERS.find(user => user.id === id)
   },
-
-  addUser: ({ name, email }) => {
-    const newUser = {
-      id: String(nextId++),
-      name,
-      email
-    };
-    users.push(newUser);
-    return newUser;
+  Mutation: {
+    addUser: (_, { name, email }) => {
+      const newUser = { id: String(idCounter++), name, email };
+      USERS.push(newUser);
+      pubsub.publish("USER_ADDED", { userAdded: newUser });
+      return newUser;
+    }
+  },
+  Subscription: {
+    userAdded: {
+      subscribe: () => pubsub.asyncIterator(["USER_ADDED"])
+    }
   }
 };
 
-module.exports = root;
+module.exports = resolvers;
