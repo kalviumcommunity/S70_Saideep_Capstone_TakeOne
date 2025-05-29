@@ -5,14 +5,16 @@ const cors = require("cors");
 const session = require("express-session");
 const aiRoutes = require('./routes/aiRoutes');
 const rateLimit = require('./middleware/rateLimiter');
-const userRoutes = require('./routes/userRoutes');
+const startCleanupJob = require('./cron/cleanupJob');
 const passport = require("passport");
 require("./passport"); // 🧠 Passport config file
 
 const authRoutes = require("./routes/auth"); // 🔐 Auth routes
-const userRoutes = require("./routes/user"); // 👤 User profile routes
+const user = require("./routes/user"); // 👤 User profile routes
 
 const app = express(); // ✅ Move this up before any app.use()
+
+startCleanupJob();
 
 // 🧠 Middleware
 app.use(express.json());
@@ -35,11 +37,10 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error("MongoDB Connection Error:", err));
 
 // 🚪 Route middlewares
-app.use('/api/users',userRoutes)
 app.use('/api/auth',rateLimit);
 app.use('/api/ai',aiRoutes);
 app.use("/api/auth", authRoutes);   // Register/Login + Google OAuth
-app.use("/api/users", userRoutes);  // Profile, Update, Me APIs
+app.use("/api/users", user);  // Profile, Update, Me APIs
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
