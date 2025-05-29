@@ -7,6 +7,9 @@ const aiRoutes = require('./routes/aiRoutes');
 const rateLimit = require('./middleware/rateLimiter');
 const startCleanupJob = require('./cron/cleanupJob');
 const passport = require("passport");
+const { graphqlHTTP } = require("express-graphql");
+const schema = require('./graphql/schema');
+const root = require('./graphql/resolvers');
 require("./passport"); // 🧠 Passport config file
 
 const authRoutes = require("./routes/auth"); // 🔐 Auth routes
@@ -26,6 +29,12 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+app.use("/graphql",graphqlHTTP({
+  schema,
+  rootValue: root,
+  graphiql: true
+}))
 
 // 🚀 Initialize Passport.js
 app.use(passport.initialize());
