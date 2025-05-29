@@ -5,11 +5,23 @@ const users = [
   { id: "3", name: "Charlie", email: "charlie@example.com" }
 ];
 
+let nextId = 4; // To simulate unique ID for new users
+
 const root = {
   hello: () => "GraphQL API working ✅",
 
   getUser: ({ id }) => {
     return users.find(user => user.id === id);
+  },
+
+  addUser: ({ name, email }) => {
+    const newUser = {
+      id: String(nextId++),
+      name,
+      email
+    };
+    users.push(newUser);
+    return newUser;
   }
 };
 
