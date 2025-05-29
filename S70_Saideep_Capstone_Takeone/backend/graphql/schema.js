@@ -6,6 +6,10 @@ const schema = buildSchema(`
     getUser(id: ID!): User
   }
 
+  type Mutation {
+    addUser(name: String!, email: String!): User
+  }
+
   type User {
     id: ID!
     name: String
