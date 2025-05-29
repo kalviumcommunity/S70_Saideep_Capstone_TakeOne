@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Server Side Rendering - Movie List</title>
+</head>
+<body>
+  <h1>🎬 Welcome to TakeOne Movie Hub</h1>
+  <h2>Rendered using Server Side Rendering (EJS)</h2>
+  <ul>
+    <% movies.forEach(movie => { %>
+      <li><strong><%= movie.title %></strong> - <%= movie.director %></li>
+    <% }); %>
+  </ul>
+</body>
+</html>

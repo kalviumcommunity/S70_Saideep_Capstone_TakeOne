@@ -51,5 +51,17 @@ app.use('/api/ai',aiRoutes);
 app.use("/api/auth", authRoutes);   // Register/Login + Google OAuth
 app.use("/api/users", user);  // Profile, Update, Me APIs
 
+app.set("view engine", "ejs");
+
+const movies = [
+  { title: "Inception", director: "Christopher Nolan" },
+  { title: "Interstellar", director: "Christopher Nolan" },
+  { title: "The Social Network", director: "David Fincher" }
+];
+
+app.get("/", (req, res) => {
+  res.render("index", { movies });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
