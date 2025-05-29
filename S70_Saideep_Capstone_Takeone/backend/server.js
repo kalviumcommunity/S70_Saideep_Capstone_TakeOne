@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
+const aiRoutes = require('./routes/aiRoutes');
 const passport = require("passport");
 require("./passport"); // 🧠 Passport config file
 
@@ -32,6 +33,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error("MongoDB Connection Error:", err));
 
 // 🚪 Route middlewares
+app.use('/api/ai',aiRoutes);
 app.use("/api/auth", authRoutes);   // Register/Login + Google OAuth
 app.use("/api/users", userRoutes);  // Profile, Update, Me APIs
 
