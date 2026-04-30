@@ -25,6 +25,7 @@ COPY --from=builder /usr/src/app/middleware ./middleware
 COPY --from=builder /usr/src/app/models ./models
 COPY --from=builder /usr/src/app/routes ./routes
 COPY --from=builder /usr/src/app/utils ./utils
+COPY --from=builder /usr/src/app/passport.js ./
 COPY --from=builder /usr/src/app/server_modern.js ./
 
 # Set environment variables
