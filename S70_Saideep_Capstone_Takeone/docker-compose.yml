@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - takeone_net
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/takeone?replicaSet=rs0
+      - REDIS_URL=redis://redis:6379
+      - FRONTEND_URL=http://localhost
+      - JWT_SECRET=super_secret_jwt_key_in_production
+      - JWT_REFRESH_SECRET=super_secret_refresh_key_in_production
+      - SESSION_SECRET=super_secret_session_key
+      - CSRF_SECRET=super_secret_csrf_key
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=placeholder
+      - AWS_SECRET_ACCESS_KEY=placeholder
+      - AWS_S3_BUCKET_NAME=takeone-bucket
+    depends_on:
+      mongo-setup:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+    networks:
+      - takeone_net
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - takeone_net
+    healthcheck:
+      test: test $$(echo "rs.initiate({_id:'rs0',members:[{_id:0,host:\"mongo:27017\"}]}).ok || rs.status().ok" | mongo --port 27017 --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  mongo-setup:
+    image: mongo:6
+    depends_on:
+      - mongo
+    networks:
+      - takeone_net
+    command: >
+      mongosh --host mongo:27017 --eval 
+      '
+      try {
+        rs.status();
+      } catch (e) {
+        rs.initiate({
+          _id: "rs0",
+          members: [{ _id: 0, host: "mongo:27017" }]
+        });
+      }
+      '
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - takeone_net
+
+networks:
+  takeone_net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  redis_data:

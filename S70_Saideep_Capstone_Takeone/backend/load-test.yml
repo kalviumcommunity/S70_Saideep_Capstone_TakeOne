@@ -1,0 +1,42 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 50
+      name: "Ramp up load"
+    - duration: 60
+      arrivalRate: 100
+      name: "Sustained high load (1000+ concurrent operations)"
+  plugins:
+    expect: {}
+scenarios:
+  - name: "Read heavy flow (Discover/Communities)"
+    weight: 8
+    flow:
+      - get:
+          url: "/api/posts?category=Community"
+      - think: 1
+      - get:
+          url: "/api/posts?category=Workshop"
+          
+  - name: "Auth & Write Flow"
+    weight: 2
+    flow:
+      - post:
+          url: "/api/auth/register"
+          json:
+            name: "Load Test User"
+            email: "loadtest_{{$timestamp}}_{{$randomString()}}@example.com"
+            password: "Password123!"
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "loadtest_{{$timestamp}}_{{$randomString()}}@example.com"
+            password: "Password123!"
+      - post:
+          url: "/api/posts"
+          json:
+            title: "Load Test Post {{$timestamp}}"
+            description: "This is a load test post created during load testing."
+            category: "General"
